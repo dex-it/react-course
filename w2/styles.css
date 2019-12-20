@@ -6,11 +6,21 @@ body {
   margin: 0;
 }
 
+:root { 
+  --base-white: #fff;
+  --base-black: #1F1F1F;
+  --base-blue: #0B6DB4;
+  --base-blue-light: rgba(11, 109, 180, 0.4);
+  --base-border: #E1E1E1;
+  --base-shodow: -1px 1px 8px rgba(169, 169, 169, 0.25);
+  --base-shadow-border: -1px 1px 8px rgba(169, 169, 169, 0.25), 0px 0px 0px 3px var(--base-blue);
+
+  --base-font: Roboto, sans-serif;
+}
+
 .container {
-  background: linear-gradient(to left, #FFFFFF, #ECE9E6);
   height: 100%;
  
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,12 +29,24 @@ body {
 .banner {
   background-color: #FFFFFF;
   box-shadow: -2px 4px 7px rgba(169, 169, 169, 0.25);
+  border: 3px solid var(--base-border);
+
+  display: flex;
+  box-sizing: content-box;
+  width: 975px;
+
+  overflow: hidden;
 }
 
 .banner-container {
   display: flex;
   align-items: center;
   padding: 40px 20px;
+
+  min-width: 975px;
+  justify-content: space-between;
+
+  transition: transform 500ms ease-in-out;
 }
 
 .banner-container > img {
@@ -33,28 +55,66 @@ body {
 }
 
 .banner-container > p {
-  color: #545454;
-  font-size: 110px;
-  font-family: Yanone Kaffeesatz, sans-serif;
-  line-height: 121px;
+  color: var(--base-black);
+  font-size: 80px;
+  font-family: var(--base-font);
+  line-height: 80px;
   margin: 0 50px;
 }
 
 .controls {
-  text-align: center;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.controls > button {
-  border: 1px solid #545454;
-  box-sizing: border-box;
+.button {
+  background: #0B6DB4;
+  box-shadow: var(--base-shodow);
   border-radius: 4px;
-  background-color: transparent;
-  padding: 10px 32px;
+  border: none;
+  padding: 14px 18px;
 
   font-weight: bold;
-  font-family: Yanone Kaffeesatz, sans-serif;
+  font-family: var(--base-font);
+  font-size: 18px;
   line-height: 18px;
   text-transform: uppercase;
-  color: #545454;
+  color: var(--base-white);
+}
+
+.button:focus > span {
+  text-decoration: underline;
+}
+
+.button > svg, .button > span {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.button > *:first-child {
+  margin-right: 10px;
+}
+
+.indicators > *:not(*:last-child) {
+  margin-right: 10px;
+}
+
+.indicator {
+  width: 25px;
+  height: 25px;
+  background-color: var(--base-blue-light);
+  border-radius: 100%;
+
+  border: none;
+}
+
+.indicator.is-current { 
+  background-color: var(--base-blue);
+}
+
+.indicator:focus {
+  outline: none;
+  box-shadow: var(--base-shadow-border);
 }

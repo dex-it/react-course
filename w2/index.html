@@ -5,34 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link href="./styles.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
   </head>
 
   <body>
     <div class="container">
       <main class="main-content">
 
+        <article class="banner" id="banner"></article>
+
         <div class="controls">
-          <button id="next">Next</button>
+          <button id="prev" class="button">
+            <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M6.672 15.791L8.262 14.1995L5.0595 11L17.25 11V8.74998L5.06025 8.74998L8.26275 5.54748L6.672 3.95598L0.75 9.87498L6.672 15.791Z" fill="white"/>
+            </svg>
+
+            <span>Предыдущая игра</span>
+          </button>
+
+          <div class="indicators" id="indicators"></div>
+
+          <button id="next" class="button">
+            <span>Следущая игра</span>
+
+            <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M11.328 3.20901L9.738 4.80052L12.9405 8.00002H0.75V10.25H12.9398L9.73725 13.4525L11.328 15.044L17.25 9.12502L11.328 3.20901Z" fill="white"/>
+            </svg>
+          </button>
         </div>
-
-        <article class="banner">
-          <div class="banner-container" id="banner">
-            <img src="./images/DALLAS_MAVERICKS.png" alt="Логотип клуба">
-
-            <p>
-              114 — 110
-            </p>
-
-            <img src="./images/DALLAS_MAVERICKS.png" alt="Логотип клуба">
-          </div>
-        </article>
 
       </main>
 
     </div>
 
 
+    <script src="./constants.js"></script>
+    <script src="./helpers.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>

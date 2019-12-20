@@ -1,42 +1,61 @@
-const games = [
-  {
-    home: { name: 'Dallas Mavericks', logo: './images/DALLAS_MAVERICKS.png', points: 114 },
-    guest: { name: 'Los Angeles Lakers', logo: './images/LAKERS.svg', points: 100 },
-  },
-  {
-    home: { name: 'Boston Celtics', logo: './images/CELTICS.png', points: 93 },
-    guest: { name: 'Philadelphia 76ers', logo: './images/PHILADELPHIA.svg', points: 107 },
-  },
-  {
-    home: { name: 'Golden State Warriors', logo: './images/GSW.svg', points: 102 },
-    guest: { name: 'Miami Heat', logo: './images/MIAMI_HEAT.svg', points: 122 },
-  },
-  {
-    home: { name: 'Milwaukee Bucks', logo: './images/MILWAUKEE_BUCKS.svg', points: 133 },
-    guest: { name: 'Utah Jazz', logo: './images/UTAH_JAZZ.svg', points: 99 },
-  },
-];
-
 let currentIndex = 0;
 
-const getNewIndex = (index) => index === games.length - 1 ? 0 : index + 1;
-
-
-const showNextGame = (index) => {
+const addGameToBanner = (index) => {
   const banner = document.getElementById('banner');
+  const indicators = document.getElementById('indicators');
   const game = games[index];
 
-  banner.innerHTML = `
-    <img src="${game.home.logo}" alt="Логотип клуба ${game.home.name}">
+  banner.innerHTML +=
+    `<div class="banner-container">
+      <img src="${game.home.logo}" alt="Логотип клуба ${game.home.name}">
 
-    <p>${game.home.points} — ${game.guest.points}</p>
+      <p>${game.home.points} — ${game.guest.points}</p>
 
-    <img src="${game.guest.logo}" alt="Логотип клуба ${game.guest.name}">
-  `
+      <img src="${game.guest.logo}" alt="Логотип клуба ${game.guest.name}">
+    </div>`;
+
+  const isCurrent = index === currentIndex;
+  indicators.innerHTML += 
+    `<button
+      class="indicator ${isCurrent ? 'is-current' : ''}"
+      tabindex="${isCurrent ? -1 : 0}"
+      onclick="showNewGame(${index})"
+    >
+    </button>`;
+}
+
+const showNewGame = (newIndex) => {
+  // update state
+  currentIndex = newIndex;
+
+  const banner = document.getElementById('banner');
+  const indicators = document.getElementById('indicators');
+
+  banner.childNodes.forEach((bannerInner) => {
+    bannerInner.style.transform = `translateX(-${bannerInner.offsetWidth * newIndex}px)`;
+  })
+
+  indicators.childNodes.forEach((indicator, index) => {
+    indicator.classList.toggle('is-current', index == currentIndex);
+    indicator.setAttribute('tabindex', index === currentIndex ? -1 : 0);
+  })
 }
 
 const nextButton = document.getElementById('next');
 nextButton.addEventListener('click', () => {
-  currentIndex = getNewIndex(currentIndex);
-  showNextGame(currentIndex);
+  const newIndex = increaseIndex(currentIndex);
+  showNewGame(newIndex);
+})
+
+const prevButton = document.getElementById('prev');
+prevButton.addEventListener('click', () => {
+  const newIndex = decreaseIndex(currentIndex);
+  showNewGame(newIndex);
+})
+
+games.forEach((_, index) => addGameToBanner(index));
+
+document.addEventListener('keydown', (event) => {
+  if (event.keyCode === KEY_CODES.leftArrow) showNewGame(decreaseIndex(currentIndex))
+  if (event.keyCode === KEY_CODES.rightArrow) showNewGame(increaseIndex(currentIndex))
 })
